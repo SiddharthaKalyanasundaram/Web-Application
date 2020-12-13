@@ -1,0 +1,30 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+<table>
+    @foreach (var employee in Model.Employees)
+    {
+        <tr>
+            <td>
+                <!-- not Working need to find reason -->
+                @Html.ActionLink(employee.Id.ToString(), "Details", new { id = employee.Id })
+
+                <!-- not Working need to find reason -->
+                @Html.ActionLink(
+                            "Details 1",
+                            "Post",
+                            new { id = employee.Id },
+                            new { onclick = "return confirm('Are you sure you wish to delete this post?');" });
+
+                <!-- Working -->
+                <a asp-page-handler="Details" asp-route-id="@employee.Id">Details</a>
+            </td>
+            <td>@employee.Name</td>
+        </tr>
+
+    }
+</table>
